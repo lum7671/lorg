@@ -6,7 +6,7 @@ URL을 단축하고 Org-mode 링크 형식으로 출력하는 CLI 도구입니�
 
 ```bash
 uv run python lorg https://example.com
-# output: [[https://example.com][Custom Title]]
+# output: [[tinyurl(https://example.com)][Custom Title]]
 uv run python lorg https://example.com "Custom Title"
 ```
 
