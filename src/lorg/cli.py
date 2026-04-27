@@ -1,3 +1,4 @@
+import html
 import re
 import sys
 import urllib.parse
@@ -16,10 +17,11 @@ def get_page_title(url):
         req = urllib.request.Request(url, headers=headers)
 
         with urllib.request.urlopen(req, timeout=7) as response:
-            html = response.read().decode("utf-8", errors="replace")
-            title_search = re.search(r"<title>(.*?)</title>", html, re.IGNORECASE | re.DOTALL)
+            page = response.read().decode("utf-8", errors="replace")
+            title_search = re.search(r"<title>(.*?)</title>", page, re.IGNORECASE | re.DOTALL)
             if title_search:
                 title = title_search.group(1).strip()
+                title = html.unescape(title)
                 return title.replace("\n", " ").replace("\r", "")
     except Exception:
         pass

@@ -9,9 +9,11 @@ description = "Shorten URL and print Org-mode link"
 readme = "README.md"
 requires-python = ">=3.9"
 
+[project.scripts]
+lorg = "lorg.cli:main"
+
 [tool.setuptools]
 package-dir = {"" = "src"}
-script-files = ["lorg"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
