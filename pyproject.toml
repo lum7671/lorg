@@ -8,6 +8,7 @@ version = "0.1.0"
 description = "Shorten URL and print Org-mode link"
 readme = "README.md"
 requires-python = ">=3.9"
+dependencies = ["gdshortener>=1.0.1"]
 
 [project.scripts]
 lorg = "lorg.cli:main"

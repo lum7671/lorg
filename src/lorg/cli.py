@@ -1,8 +1,9 @@
 import html
 import re
 import sys
-import urllib.parse
 import urllib.request
+
+import gdshortener
 
 
 def get_page_title(url):
@@ -29,15 +30,13 @@ def get_page_title(url):
 
 
 def get_short_url(long_url):
-    headers = {"User-Agent": "Mozilla/5.0"}
-    api_url = f"https://is.gd/create.php?format=simple&url={urllib.parse.quote(long_url)}"
-
-    try:
-        req = urllib.request.Request(api_url, headers=headers)
-        with urllib.request.urlopen(req) as response:
-            return response.read().decode("utf-8").strip()
-    except Exception as e:
-        return f"ShortenerError: {e}"
+    for shortener_cls in (gdshortener.ISGDShortener, gdshortener.VGDShortener):
+        try:
+            short_url, _ = shortener_cls().shorten(long_url)
+            return short_url
+        except Exception:
+            continue
+    return f"ShortenerError: both is.gd and v.gd failed"
 
 
 def main():
